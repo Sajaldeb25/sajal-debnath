@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sajal Debnath</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --text-color: #333;
+            --light-bg: #f5f6fa;
+            --nav-bg: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            padding-top: 60px; /* Space for fixed navbar */
+        }
+
+        /* Navigation Styles */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-brand {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: .5rem;
+        }
+
+        .nav-menu a {
+            color: rgb(144, 224, 214);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Hero Section with Bio and Image */
+        .hero {
+            display: flex;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 2rem;
+            background-color: var(--light-bg);
+            margin-bottom: 2rem;
+        }
+
+        .bio {
+            flex: 1;
+            padding: 1rem;
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            background: #ddd; /* Placeholder color */
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Content Sections */
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: #fdf7f7;
+            border-radius: 8px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Contact Section Styles */
+        .contact-section {
+            background: var(--primary-color);
+            color: rgb(11, 210, 213);
+            padding: .5rem 1rem;
+            margin-top: 2rem;
+            margin-bottom: 0;
+        }
+
+        .contact-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-title {
+            color: white;
+            border-bottom: 2px solid var(--secondary-color);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-3px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-item svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        
+        h1, h2, h3 {
+            color: var(--primary-color);
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .education-item, .experience-item, .publication-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        ul {
+            list-style-position: inside;
+            padding-left: 1rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 0.5rem;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .hero {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .profile-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            body {
+                padding-top: 100px; /* Adjusted for mobile nav */
+            }
+        }
+
+    </style>
+    <!-- Make sure to include the Font Awesome library in your <head> tag -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <!-- <a href="#top" class="nav-brand"><i class="fas fa-arrow-up"></i></a> -->
+        <a href="#top" class="nav-brand">🏠</a>
+        <ul class="nav-menu">
+            <li><a href="#education">Education</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#publications">Publications</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#problem-solving">Achievements</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section with Bio and Image -->
+    <div class="hero">
+        <div class="bio">
+            <h1>Sajal Debnath</h1>
+            <p><i>Research enthusiast & Software Engineer</i></p>
+            <p style="margin: 1rem 0;">
+                I am a researcher specializing in Artificial Intelligence (AI), Machine Learning (ML), and Healthcare Analytics, with a particular focus on streaming data analysis and fuzzy systems. I completed my M.Sc. in Computer Science and Engineering at the University of Barishal in 2024, where I also earned my Bachelor's degree in 2022.
+            </p>
+
+            <p style="margin: 1rem 0;">
+                My research spans multiple domains including Streaming data analysis and classification, AI for healthcare, and Quantum-DNA computing. I have published in reputable journal and conferences including Applied Intelligence, Healthcare Analytics and ICAEEE. My Bachelor's thesis was supervised by Dr. Md Manjur Ahmed and Master's thesis by Dr. Rahat Hossain Faisal. I have also collaborated with researchers from other institutions, contributing to quantum-DNA and DNA-quantum project under the guidance of Prof. Dr. Hafiz Md. Hasan Babu.
+            </p>
+
+            <p style="margin: 1rem 0;">
+                My research methodologies include adaptive learning algorithms, fuzzy systems, multi-objective optimization, with applications in healthcare diagnostics and treatment planning. I am particularly interested in developing clinically relevant solutions that bridge the gap between theoretical computer science and practical medical applications.
+            </p>
+        </div>
+        <div class="profile-image">
+            <!-- Replace with your actual image -->
+            <img src="./sajal_debnath.jpg" alt="Sajal Debnath">
+        </div>
+    </div>
+
+    <div class="content">
+        <section id="education">
+            <h2>Education</h2>
+            <div class="education-item">
+                <h3>Master of Science in Computer Science and Engineering</h3>
+                <p>University of Barishal, Bangladesh</p>
+                <p>March, 2024 | CGPA: 3.73/4.00</p>
+                <p><em>Thesis: Fuzzy Expert System-based Multi-drug Chemotherapy Scheduling for Cell Cycle Specific Cancer Treatment</em></p>
+            </div>
+            <div class="education-item">
+                <h3>Bachelor of Science in Computer Science and Engineering</h3>
+                <p>University of Barishal, Bangladesh</p>
+                <p>April, 2022 | CGPA: 3.73/4.00</p>
+                <p><em>Thesis: Buffer-based Adaptive Fuzzy Classifier</em></p>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Professional Experience</h2>
+            <div class="experience-item">
+                <h3>Software Engineer</h3>
+                <p>Brain Station-23 PLC, Bangladesh | July, 2024 - Present</p>
+                <ul>
+                    <li>Lead the backend support team to resolve critical client issues with immediate response.</li>
+                    <li>Implement new features under the core development team and continuously optimize existing functions, ensuring system efficiency and scalability.</li>
+                    <li>Design and model efficient database structures to ensure optimal data retrieval and performance.</li>
+                    <li>Perform database engineering tasks based on specific customer requirements and collaborate closely to meet their needs.</li>
+                    <li>Provide technical mentorship and guidance to junior team members, fostering their growth and skill development.</li>
+                    <li>Proactively enhance system performance through improvements and refactoring efforts.</li>
+                    <li>Performance improvement of the system by about 70%, by using optimized query and indexing and influencing team members to follow it.</li>                    
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h3>Associate Software Engineer</h3>
+                <p>Brain Station-23 PLC, Bangladesh | June, 2022 - June, 2024</p>
+                <ul>
+                    <li>Write scalable code for a bus booking platform that's used by an offshore company (Ferdia TEQ). </li>
+                    <li>Built and maintained Multi-tenant application. </li>
+                    <li>Communicating with teams regarding product and design. </li>
+                    <li>Works in both core and support team for implementing new features and bug fixing. </li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h3>Research Assistant</h3>
+                <p>In Dr. Md Manjur Ahmed's Research Team | September, 2021 - February, 2022</p>
+                <ul>
+                    <li>Streaming data analysis and algorithm developments</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="publications">
+            <h2>Publications</h2>
+            <div class="publication-item">
+                <h3>Published Papers</h3>
+                <ul>
+                    <li>Enhanced Fuzzy Expert Control for Cancer Chemotherapy Drug Dose Scheduling (Barishal University Journal of Bio-Sciences, <a href="https://bu.ac.bd/uploads/BUJBSV3J2024/05.pdf" target="_blank">paper</a>)</li>
+                    <li>Optimization of Chemotherapy Drug Regimens with Genetic Algorithm and Dose Optimizer (Barishal University Journal of Bio-Sciences, <a href="https://bu.ac.bd/uploads/BUJBSV3J2024/06.pdf" target="_blank">paper</a>)</li>
+                    <li>Multi-objective Optimization and Feedback-based Chemotherapy Drug Scheduling System (ICAEEE 2024, <a href="https://doi.org/10.1109/ICAEEE62219.2024.10561667" target="_blank">paper</a>)</li>
+                    <li>A Modular Fuzzy System for Drug Scheduling in chemotherapy (Healthcare Analytics, <a href="https://doi.org/10.1016/j.health.2023.100139" target="_blank">paper</a>)</li>
+                    <li>Buffer-based Adaptive Fuzzy classifier (Applied Intelligence, <a href="https://doi.org/10.1007/s10489-022-04155-2" target="_blank">paper</a>)</li>
+                    <li>Microcontroller based Robotics Support for Blind People (Barishal University Journal, <a href="https://bu.ac.bd/uploads/BUJ1V5I12/12.%20Md.%20Erfan1.pdf" target="_blank">paper</a>) </li>
+                </ul>
+            </div>
+            <div class="publication-item">
+                <h3>Under Review</h3>
+                <ul>
+                    <li>Online Alzheimer's Disease Identification Using Tree-based Self Organizing Fuzzy Stream Data Classifier (IEEE Sensors)</li>
+                    <li>A New Clinically Relevant Multi-drug Cancer Chemotherapy based on Fuzzy Expert System (Computers in Biology and Medicine)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div>
+                    <h3>Programming</h3>
+                    <ul>
+                        <li>Python (Proficient)</li>
+                        <li>Matlab (Proficient)</li>
+                        <li>C/C++ (Contest Programming)</li>
+                        <li>SQL (Advanced)</li>
+                        <li>Javascript and JQuery (Professional)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Software</h3>
+                    <ul>
+                        <li>Matlab</li>
+                        <li>Jupyter Notebook</li>
+                        <li>LeTex</li>
+                        <li>Tableau</li>
+                        <li>Pycharm</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Other Skills</h3>
+                    <ul>
+                        <li>Problem-Solving</li>
+                        <li>Adaptability</li>
+                        <li>Critical Thinking</li>
+                        <li>Communication</li>
+                        <li>Leadership</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="problem-solving">
+            <h2>Problem Solving & Competitions</h2>
+            <ul>
+                <li>Solved 530+ problems on Codeforces (Max Rating: 1202)</li>
+                <li>201 problems solved on UVa Online Judge</li>
+                <li>Participated in ACM ICPC Dhaka Regional (2017, 2018)</li>
+                <li>2nd Position in UGV Inter-University Programming Contest (2019)</li>
+                <li>Participated in Code Samurai Hackathon and Kaggle competitions</li>
+            </ul>
+
+            <h2>Certification</h2>
+            <ul>
+                <li>Meta Database Engineer Professional Certificate</li>
+                <li>IBM Machine Learning Professional Certificate</li>
+                <li>IBM Generative AI Engineering with LLMs Specialization</li>
+                
+            </ul>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="contact-container">
+                <!-- <h2 class="contact-title">Contact Information</h2> -->
+                <div class="contact-links">
+                    <a href="mailto:sajal.cse3.bu@gmail.com" class="contact-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        sajal.cse3.bu@gmail.com
+                    </a>
+                    <a href="https://github.com/Sajaldeb25" target="_blank" class="contact-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                        </svg>
+                        GitHub
+                    </a>
+                    <a href="https://www.linkedin.com/in/sajal-debnath-6ab44b16b/" target="_blank" class="contact-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                            <rect x="2" y="9" width="4" height="12"/>
+                            <circle cx="4" cy="4" r="2"/>
+                        </svg>
+                        LinkedIn
+                    </a>
+                    <a href="https://www.facebook.com/sajal.debnath.025" target="_blank" class="contact-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                        </svg>
+                        Facebook
+                    </a>
+                </div>
+                <p>&copy; Copyright 2024 Sajal Debnath. All rights reserved.</p>
+            </div>
+        </section>    
+        
+    </div>
+</body>
+</html>
