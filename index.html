@@ -107,6 +107,60 @@
             padding: 0 20px;
         }
 
+
+        /* Tab Styles */
+        .news-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab-button {
+            background-color: #f8f8f8;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 20px;
+            margin-right: 5px;
+            transition: 0.3s;
+            border-radius: 5px 5px 0 0;
+            border: 1px solid #ddd;
+            border-bottom: none;
+        }
+
+        .tab-button:hover {
+            background-color: #e9e9e9;
+        }
+
+        .tab-button.active {
+            background-color: #fff;
+            border-bottom: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 15px;
+            border-top: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .news-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .news-date {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+        }
+
         section {
             margin-bottom: 2rem;
             padding: 1rem;
@@ -237,6 +291,7 @@
         <!-- <a href="#top" class="nav-brand"><i class="fas fa-arrow-up"></i></a> -->
         <a href="#top" class="nav-brand">🏠</a>
         <ul class="nav-menu">
+            <li><a href="#news">News</a></li>
             <li><a href="#education">Education</a></li>
             <li><a href="#publications">Publications</a></li>
             <li><a href="#experience">Experience</a></li>
@@ -264,7 +319,7 @@
                 My research methodologies include adaptive learning algorithms, fuzzy systems, multi-objective optimization, with applications in healthcare diagnostics and treatment planning. I am particularly interested in developing clinically relevant solutions that bridge the gap between theoretical computer science and practical medical applications.
             </p>
             <p style="margin: 1rem 0;">
-                <i>I am open to research collaboration and internship / full time opportunities.</i>
+                <I> <b>I am open to research collaboration or full time opportunities. </b> </i>
             </p>
         </div>
         <div class="profile-image">
@@ -274,6 +329,103 @@
     </div>
 
     <div class="content">
+
+        <section id="news" class="news-section">
+            <h1>News</h1>
+            
+            <div class="news-tabs">
+                <button class="tab-button active" onclick="openTab(event, '2025')">2025</button>
+                <button class="tab-button" onclick="openTab(event, '2024')">2024</button>
+                <button class="tab-button" onclick="openTab(event, '2023-past')">2023-PAST</button>
+            </div>
+
+            <!-- 2025 Tab -->
+            <div id="2025" class="tab-content active">
+                <div class="news-item">
+                    <div class="news-date">April., 2025</div>
+                    <div class="news-content">
+                        Seeking for PhD positions in AI/ML with focus on Healthcare Analytics.
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">Mar., 2025</div>
+                    <div class="news-content">
+                        Research paper "A New Clinically Relevant Multi-drug Cancer Chemotherapy based on Fuzzy Expert System" submitted at Computers in Biology and Medicine.
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">Feb., 2025</div>
+                    <div class="news-content">
+                        Research paper "Online Alzheimer's Disease Identification Using Tree-based Self Organizing Fuzzy Stream Data Classifier" submitted at IEEE Sensors.
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">Jan., 2025</div>
+                    <div class="news-content">
+                        Promoted to Software Engineer-II
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2024 Tab -->
+            <div id="2024" class="tab-content">
+                <div class="news-item">
+                    <div class="news-date">Aug., 2024</div>
+                    <div class="news-content">
+                        Published our research paper "Multi-objective optimization and feedback-based chemotherapy drug scheduling"
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">Jul., 2024</div>
+                    <div class="news-content">
+                        Promoted to Software Engineer at Brain Station-23 PLC.
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">April., 2024</div>
+                    <div class="news-content">
+                        Accepted and presented our chemotherapy drug scheduling work at the ICAEEE-2024.
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">Mar., 2024</div>
+                    <div class="news-content">
+                        Completed my M.Sc. in Computer Science and Engineering from University of Barishal with CGPA 3.73/4.00.
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2023-PAST Tab -->
+            <div id="2023-past" class="tab-content">
+                <div class="news-item">
+                    <div class="news-date">Jan., 2023</div>
+                    <div class="news-content">
+                        Published "A Modular Fuzzy Expert System for Chemotherapy Drug Dose Scheduling" in Healthcare Analytics journal.
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">Oct., 2022</div>
+                    <div class="news-content">
+                        Published "Buffer-based adaptive fuzzy classifier" in Applied Intelligence (Springer).
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">Jun., 2022</div>
+                    <div class="news-content">
+                        Joined as Associate Software Engineer (Python) in Brain Station 23 PLC. 
+                    </div>
+                </div>
+                <div class="news-item">
+                    <div class="news-date">Apr., 2022</div>
+                    <div class="news-content">
+                        Completed B.Sc. in Computer Science and Engineering from University of Barishal with CGPA 3.73/4.00.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        
         <section id="education">
             <h2>Education</h2>
             <div class="education-item">
@@ -456,4 +608,36 @@
         
     </div>
 </body>
+<script>
+    // Function to open a specific tab
+    function openTab(evt, tabName) {
+        // Hide all tab content
+        var tabContent = document.getElementsByClassName("tab-content");
+        for (var i = 0; i < tabContent.length; i++) {
+            tabContent[i].classList.remove("active");
+        }
+
+        // Remove active class from all tab buttons
+        var tabButtons = document.getElementsByClassName("tab-button");
+        for (var i = 0; i < tabButtons.length; i++) {
+            tabButtons[i].classList.remove("active");
+        }
+
+        // Show the specific tab content
+        document.getElementById(tabName).classList.add("active");
+        
+        // Add active class to the button that opened the tab
+        evt.currentTarget.classList.add("active");
+    }
+
+    // Add this to ensure the first tab is open by default when the page loads
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the first tab button and simulate a click
+        var firstTab = document.getElementsByClassName("tab-button")[0];
+        if (firstTab) {
+            firstTab.click();
+        }
+    });
+
+</script>
 </html>
