@@ -3,95 +3,445 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sajal Debnath — Researcher and Software Engineer specializing in AI, Machine Learning, and Healthcare Analytics.">
+    <meta property="og:title" content="Sajal Debnath">
+    <meta property="og:description" content="Researcher & Software Engineer | AI, ML, Healthcare Analytics">
+    <meta property="og:type" content="website">
     <title>Sajal Debnath</title>
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+            if (localStorage.getItem('sidebarCollapsed') === 'true') {
+                document.documentElement.classList.add('sidebar-collapsed');
+            }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --text-color: #333;
-            --light-bg: #f5f6fa;
-            --nav-bg: #2c3e50;
+            --bg: #f0f2f5;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --muted: #64748b;
+            --primary: #4f46e5;
+            --primary-light: #eef2ff;
+            --secondary: #0d9488;
+            --secondary-light: #f0fdfa;
+            --border: #e2e8f0;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --sidebar-width: 240px;
+            --hero-gradient: linear-gradient(135deg, #eef2ff 0%, #f0fdfa 100%);
+            --sidebar-bg: rgba(255, 255, 255, 0.88);
+            color-scheme: light;
         }
-        
+
+        [data-theme="dark"] {
+            color-scheme: dark;
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --primary: #818cf8;
+            --primary-light: rgba(129, 140, 248, 0.15);
+            --secondary: #2dd4bf;
+            --secondary-light: rgba(45, 212, 191, 0.12);
+            --border: #334155;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+            --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.45);
+            --hero-gradient: linear-gradient(135deg, #1e1b4b 0%, #134e4a 100%);
+            --sidebar-bg: rgba(30, 41, 59, 0.92);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             scroll-behavior: smooth;
         }
-        
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--text-color);
-            padding-top: 60px; /* Space for fixed navbar */
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            line-height: 1.65;
+            color: var(--text);
+            background: var(--bg);
         }
 
-        /* Navigation Styles */
-        .navbar {
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--secondary);
+        }
+
+        /* Sidebar */
+        .sidebar {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            background: var(--nav-bg);
-            padding: 1rem;
+            width: var(--sidebar-width);
+            height: 100vh;
+            padding: 1.5rem 1rem;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 1px solid var(--border);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: width 0.3s ease, transform 0.3s ease, padding 0.3s ease;
+            overflow: hidden;
         }
 
-        .nav-brand {
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .nav-menu {
-            list-style: none;
+        .sidebar-header {
             display: flex;
-            gap: .5rem;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            gap: 0.5rem;
         }
 
-        .nav-menu a {
-            color: rgb(144, 224, 214);
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            color: var(--text);
+            min-width: 0;
+            flex: 1;
         }
 
-        .nav-menu a:hover {
-            background-color: var(--secondary-color);
+        .brand-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
         }
 
-        /* Hero Section with Bio and Image */
+        .brand-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+            line-height: 1.3;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: opacity 0.2s;
+        }
+
+        .sidebar-toggle {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+            color: var(--muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        .sidebar-toggle:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .sidebar-toggle svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .sidebar-toggle .icon-expand { display: none; }
+
+        html.sidebar-collapsed .sidebar-toggle .icon-collapse { display: none; }
+        html.sidebar-collapsed .sidebar-toggle .icon-expand { display: block; }
+
+        .sidebar-nav {
+            list-style: none;
+            flex: 1;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.6rem 0.85rem;
+            border-radius: 8px;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-abbr {
+            display: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: var(--bg);
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .sidebar-cv .nav-abbr {
+            display: none;
+        }
+
+        .sidebar-nav a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .sidebar-nav a.active {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-left-color: var(--primary);
+            font-weight: 600;
+        }
+
+        .sidebar-cv {
+            padding-top: 0;
+        }
+
+        .sidebar-cv a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-align: center;
+            padding: 0.65rem 1rem;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .sidebar-cv a:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle {
+            width: 100%;
+            height: 40px;
+            padding: 0 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--surface);
+            color: var(--muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .theme-icon {
+            position: relative;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .theme-icon svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 18px;
+            height: 18px;
+        }
+
+        .theme-toggle .theme-label {
+            flex: 1;
+            text-align: left;
+            line-height: 1;
+        }
+
+        .theme-toggle .icon-sun { display: none; }
+        .theme-toggle .icon-moon { display: block; }
+
+        [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+        [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+        html.sidebar-collapsed {
+            --sidebar-width: 52px;
+        }
+
+        html.sidebar-collapsed .sidebar-brand,
+        html.sidebar-collapsed .sidebar-nav,
+        html.sidebar-collapsed .sidebar-footer {
+            display: none;
+        }
+
+        html.sidebar-collapsed .sidebar-header {
+            margin-bottom: 0;
+            justify-content: center;
+        }
+
+        html.sidebar-collapsed .sidebar {
+            padding: 1rem 0.5rem;
+            align-items: center;
+        }
+
+        html.sidebar-collapsed .sidebar-toggle {
+            width: 36px;
+            height: 36px;
+        }
+
+        /* Mobile menu */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            z-index: 1100;
+            width: 44px;
+            height: 44px;
+            border: none;
+            border-radius: 50%;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+
+        .menu-toggle.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .sidebar-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+        }
+
+        .sidebar-backdrop.visible {
+            display: block;
+        }
+
+        /* Main content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            max-width: calc(960px + 4rem);
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Hero */
         .hero {
             display: flex;
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            gap: 2rem;
-            background-color: var(--light-bg);
+            gap: 2.5rem;
+            align-items: flex-start;
+            padding: 2.5rem;
+            background: var(--hero-gradient);
+            border-radius: var(--radius);
             margin-bottom: 2rem;
         }
 
         .bio {
             flex: 1;
-            padding: 1rem;
+        }
+
+        .bio h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.35rem;
+        }
+
+        .tagline {
+            color: var(--muted);
+            font-style: italic;
+            margin-bottom: 1.25rem;
+        }
+
+        .bio p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .bio .cta {
+            font-weight: 600;
+            color: var(--secondary);
         }
 
         .profile-image {
-            width: 300px;
-            height: 300px;
-            background: #ddd; /* Placeholder color */
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 260px;
+            height: 260px;
+            flex-shrink: 0;
+            border-radius: 20px;
             overflow: hidden;
+            box-shadow: var(--shadow);
         }
 
         .profile-image img {
@@ -100,49 +450,82 @@
             object-fit: cover;
         }
 
-        /* Content Sections */
-        .content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* Sections */
+        section {
+            background: var(--surface);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
+        section:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
 
-        /* Tab Styles */
+        h1, h2, h3 {
+            color: var(--text);
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        h2.sub-heading {
+            margin-top: 2rem;
+            border-bottom-color: var(--secondary);
+        }
+
+        h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        /* News tabs */
         .news-tabs {
             display: flex;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ddd;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
         }
 
         .tab-button {
-            background-color: #f8f8f8;
-            border: none;
-            outline: none;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 0.45rem 1.1rem;
             cursor: pointer;
-            padding: 10px 20px;
-            margin-right: 5px;
-            transition: 0.3s;
-            border-radius: 5px 5px 0 0;
-            border: 1px solid #ddd;
-            border-bottom: none;
+            font-family: inherit;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--muted);
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
         }
 
         .tab-button:hover {
-            background-color: #e9e9e9;
+            border-color: var(--primary);
+            color: var(--primary);
         }
 
         .tab-button.active {
-            background-color: #fff;
-            border-bottom: 2px solid var(--secondary-color);
-            color: var(--secondary-color);
-            font-weight: bold;
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #ffffff;
         }
 
         .tab-content {
             display: none;
-            padding: 15px;
-            border-top: none;
         }
 
         .tab-content.active {
@@ -150,504 +533,748 @@
         }
 
         .news-item {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
         }
 
         .news-date {
-            font-weight: bold;
-            color: var(--secondary-color);
-            margin-bottom: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--secondary);
+            margin-bottom: 0.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
         }
 
-        section {
-            margin-bottom: 2rem;
+        /* Publications */
+        .publication-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .publication-list li {
             padding: 1rem;
-            background: #fdf7f7;
-            border-radius: 8px;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            margin-bottom: 0.75rem;
+            background: var(--bg);
+            border-radius: 10px;
+            border-left: 3px solid var(--secondary);
         }
 
-        /* Contact Section Styles */
-        .contact-section {
-            background: var(--primary-color);
-            color: rgb(11, 210, 213);
-            padding: .5rem 1rem;
-            margin-top: 2rem;
+        .publication-list li:last-child {
             margin-bottom: 0;
         }
 
-        .contact-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            text-align: center;
+        #publications ul li a {
+            display: inline-block;
+            margin-left: 0.25rem;
+            padding: 0.15rem 0.6rem;
+            border: 1px solid var(--primary);
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary);
+            transition: background 0.2s, color 0.2s;
         }
 
-        .contact-title {
-            color: white;
-            border-bottom: 2px solid var(--secondary-color);
+        #publications ul li a:hover {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .publication-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .publication-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Experience timeline */
+        .timeline {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            bottom: 0.5rem;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.75rem;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.65rem;
+            top: 0.45rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid var(--surface);
+            box-shadow: 0 0 0 2px var(--primary-light);
+        }
+
+        .timeline-item .meta {
+            color: var(--muted);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .timeline-item li {
+            position: relative;
+            padding-left: 1rem;
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .timeline-item li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        /* Education */
+        .education-item {
+            padding: 1rem;
+            background: var(--bg);
+            border-radius: 10px;
+        }
+
+        .education-item p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Skills chips */
+        .skill-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .skill-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .chip {
             display: inline-block;
-            padding-bottom: 0.5rem;
-            margin-bottom: 2rem;
+            padding: 0.35rem 0.85rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .chip.teal {
+            background: var(--secondary-light);
+            color: var(--secondary);
+        }
+
+        /* Achievements */
+        #problem-solving ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #problem-solving li {
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        #problem-solving li:last-child {
+            border-bottom: none;
+        }
+
+        /* Contact */
+        .contact-section {
+            text-align: center;
         }
 
         .contact-links {
             display: flex;
             justify-content: center;
-            gap: 2rem;
             flex-wrap: wrap;
-            margin-bottom: 2rem;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
         .contact-item {
             display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 0.5rem;
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            transition: transform 0.3s, background-color 0.3s;
+            color: var(--muted);
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: color 0.2s;
         }
 
         .contact-item:hover {
+            color: var(--primary);
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .contact-item:hover .contact-icon {
+            background: var(--primary);
             transform: translateY(-3px);
-            background-color: rgba(255, 255, 255, 0.1);
         }
 
-        .contact-item svg {
-            width: 24px;
-            height: 24px;
+        .contact-item:hover .contact-icon svg {
+            stroke: white;
         }
 
-        
-        h1, h2, h3 {
-            color: var(--primary-color);
+        .contact-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--primary);
+            transition: stroke 0.2s;
         }
 
-        h2 {
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .education-item, .experience-item, .publication-item {
-            margin-bottom: 1.5rem;
-        }
-        
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-        
-        ul {
-            list-style-position: inside;
-            padding-left: 1rem;
-        }
-        
-        li {
-            margin-bottom: 0.5rem;
+        .copyright {
+            color: var(--muted);
+            font-size: 0.8rem;
         }
 
-        /* Mobile Responsiveness */
+        /* Mobile */
         @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                padding: 0.5rem;
+            html.sidebar-collapsed {
+                --sidebar-width: 240px;
             }
 
-            .nav-menu {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 0.5rem;
-                font-size: 0.9rem;
+            html.sidebar-collapsed .sidebar-brand {
+                display: flex;
+            }
+
+            html.sidebar-collapsed .sidebar-nav {
+                display: block;
+            }
+
+            html.sidebar-collapsed .sidebar-footer {
+                display: flex;
+            }
+
+            html.sidebar-collapsed .sidebar {
+                padding: 1.5rem 1rem;
+                align-items: stretch;
+            }
+
+            html.sidebar-collapsed .sidebar-header {
+                justify-content: space-between;
+            }
+
+            .sidebar-toggle {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 5rem 1.25rem 2rem;
             }
 
             .hero {
-                flex-direction: column;
+                flex-direction: column-reverse;
                 align-items: center;
                 text-align: center;
+                padding: 1.75rem;
             }
 
             .profile-image {
                 width: 200px;
                 height: 200px;
             }
-
-            body {
-                padding-top: 100px; /* Adjusted for mobile nav */
-            }
         }
-
     </style>
-    <!-- Make sure to include the Font Awesome library in your <head> tag -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <!-- <a href="#top" class="nav-brand"><i class="fas fa-arrow-up"></i></a> -->
-        <a href="#top" class="nav-brand">🏠</a>
-        <ul class="nav-menu">
-            <li><a href="#news">News</a></li>
-            <li><a href="#education">Education</a></li>
-            <li><a href="#publications">Publications</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#problem-solving">Achievements</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li><a href="https://drive.google.com/file/d/1M0lQ2R4tjtMPH4pTIB2f_6ft4eR_jUaX/view?usp=sharing" target="_blank">CV</a></li>
-        </ul>
-    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
-    <!-- Hero Section with Bio and Image -->
-    <div class="hero">
-        <div class="bio">
-            <h1>Sajal Debnath</h1>
-            <p><i>Research enthusiast & Software Engineer</i></p>
-            <p style="margin: 1rem 0;">
-                <!-- I am a researcher specializing in Artificial Intelligence (AI), Machine Learning (ML), and Healthcare Analytics, with a particular focus on streaming data analysis and fuzzy systems. I completed my M.Sc. in Computer Science and Engineering at the University of Barishal in 2024, where I also earned my Bachelor's degree in 2022.-->
-                 I am a researcher specializing in Artificial Intelligence (AI), Machine Learning (ML), and Healthcare Analytics, with a particular focus on streaming data analysis and fuzzy systems. I completed my B.Sc. in Computer Science and Engineering at the University of Barishal in 2022.
-            </p>
-
-            <p style="margin: 1rem 0;">
-                My research spans multiple domains, including streaming data analysis and classification, artificial intelligence applications in healthcare, and quantum DNA computing. I have published my work in esteemed journals and conferences such as Applied Intelligence, Healthcare Analytics, the Journal of Intelligent & Fuzzy Systems, and ICAEEE. I completed my Bachelor’s thesis under the supervision of <a href="https://bu.ac.bd/view-profile.php?editId=365" target="_blank">Dr. Md Manjur Ahmed</a>. Additionally, I collaborated with <a href="https://bu.ac.bd/view-profile.php?editId=105" target="_blank">Dr. Rahat Hossain Faisal</a> on a project focused on optimizing cancer chemotherapy scheduling. My research experience also extends to interdisciplinary projects in quantum-DNA and DNA-quantum, conducted in partnership with researchers from various institutions and guided by <a href="https://www.du.ac.bd/faculty/faculty_details/CSE/1930" target="_blank">Prof. Dr. Hafiz Md. Hasan Babu</a>.
-                <!--My research covers various domains, including streaming data analysis and classification, AI in healthcare, and quantum DNA computing. I have published in reputable journals and conferences such as Applied Intelligence, Healthcare Analytics, and ICAEEE. I completed my Bachelor's thesis with guidance from <a href="https://bu.ac.bd/view-profile.php?editId=365" target="_blank">Dr. Md Manjur Ahmed</a>. For my Master's thesis, <a href="https://bu.ac.bd/view-profile.php?editId=105" target="_blank">Dr. Rahat Hossain Faisal</a> supervised my work. I also worked with researchers from other institutions. Together, we focused on projects in quantum-DNA and DNA-quantum, under the mentorship of <a href="https://www.du.ac.bd/faculty/faculty_details/CSE/1930" target="_blank">Prof. Dr. Hafiz Md. Hasan Babu</a> -->
-                <!-- This is a single-line comment -->
-            </p>
-
-            <p style="margin: 1rem 0;">
-                My research methodologies include adaptive learning algorithms, fuzzy systems, multi-objective optimization, with applications in healthcare diagnostics and treatment planning. I am particularly interested in developing clinically relevant solutions that bridge the gap between theoretical computer science and practical medical applications.
-            </p>
-            <p style="margin: 1rem 0;">
-                <I> <b>I am open to research collaboration or full time opportunities. </b> </i>
-            </p>
-        </div>
-        <div class="profile-image">
-            <!-- Replace with your actual image -->
-            <img src="./sajal_debnath.jpg" alt="Sajal Debnath">
-        </div>
-    </div>
-
-    <div class="content">
-
-        <section id="news" class="news-section">
-            <h1>News</h1>
-            
-            <div class="news-tabs">
-                <button class="tab-button active" onclick="openTab(event, '2025')">2025</button>
-                <button class="tab-button" onclick="openTab(event, '2024')">2024</button>
-                <button class="tab-button" onclick="openTab(event, '2023-past')">2023-PAST</button>
+    <div class="page-layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="#top" class="sidebar-brand">
+                    <div class="brand-avatar">SD</div>
+                    <span class="brand-name">Sajal Debnath</span>
+                </a>
+                <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Collapse sidebar" title="Collapse menu">
+                    <svg class="icon-collapse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"/>
+                    </svg>
+                    <svg class="icon-expand" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 18 15 12 9 6"/>
+                    </svg>
+                </button>
             </div>
+            <ul class="sidebar-nav">
+                <li><a href="#top" data-section="top" title="Home"><span class="nav-abbr">H</span><span class="nav-label">Home</span></a></li>
+                <li><a href="#news" data-section="news" title="News"><span class="nav-abbr">N</span><span class="nav-label">News</span></a></li>
+                <li><a href="#education" data-section="education" title="Education"><span class="nav-abbr">E</span><span class="nav-label">Education</span></a></li>
+                <li><a href="#publications" data-section="publications" title="Publications"><span class="nav-abbr">P</span><span class="nav-label">Publications</span></a></li>
+                <li><a href="#experience" data-section="experience" title="Experience"><span class="nav-abbr">X</span><span class="nav-label">Experience</span></a></li>
+                <li><a href="#skills" data-section="skills" title="Skills"><span class="nav-abbr">S</span><span class="nav-label">Skills</span></a></li>
+                <li><a href="#problem-solving" data-section="problem-solving" title="Achievements"><span class="nav-abbr">A</span><span class="nav-label">Achievements</span></a></li>
+                <li><a href="#contact" data-section="contact" title="Contact"><span class="nav-abbr">C</span><span class="nav-label">Contact</span></a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <div class="sidebar-cv">
+                    <a href="https://drive.google.com/file/d/1M0lQ2R4tjtMPH4pTIB2f_6ft4eR_jUaX/view?usp=sharing" target="_blank" rel="noopener">
+                        <span class="nav-abbr">CV</span>
+                        <span class="cv-label">Download CV</span>
+                    </a>
+                </div>
+                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode">
+                    <span class="theme-icon">
+                        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                        </svg>
+                        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                    </span>
+                    <span class="theme-label">Dark mode</span>
+                </button>
+            </div>
+        </aside>
 
-            <!-- 2025 Tab -->
-            <div id="2025" class="tab-content active">
-                <div class="news-item">
-                    <div class="news-date">October., 2025</div>
-                    <div class="news-content">
-                        Research paper "TSOF: A Tree-Based Self-Organizing Fuzzy Method for Streaming Data Classification in Alzheimer's Disease Detection", accepted by Journal of Intelligent & Fuzzy Systems
-                    </div>
+        <main class="main-content" id="top">
+            <div class="hero">
+                <div class="bio">
+                    <h1>Sajal Debnath</h1>
+                    <p class="tagline">Researcher &amp; Software Engineer</p>
+                    <p>
+                        I am a researcher specializing in Artificial Intelligence (AI), Machine Learning (ML), and Healthcare Analytics, with a particular focus on streaming data analysis and fuzzy systems. I completed my B.Sc. in Computer Science and Engineering at the University of Barishal in 2022.
+                    </p>
+                    <p>
+                        My research spans multiple domains, including streaming data analysis and classification, artificial intelligence applications in healthcare, and quantum DNA computing. I have published my work in esteemed journals and conferences such as Applied Intelligence, Healthcare Analytics, the Journal of Intelligent &amp; Fuzzy Systems, and ICAEEE. I completed my Bachelor's thesis under the supervision of <a href="https://bu.ac.bd/view-profile.php?editId=365" target="_blank" rel="noopener">Dr. Md Manjur Ahmed</a>. Additionally, I collaborated with <a href="https://bu.ac.bd/view-profile.php?editId=105" target="_blank" rel="noopener">Dr. Rahat Hossain Faisal</a> on a project focused on optimizing cancer chemotherapy scheduling. My research experience also extends to interdisciplinary projects in quantum-DNA and DNA-quantum, conducted in partnership with researchers from various institutions and guided by <a href="https://www.du.ac.bd/faculty/faculty_details/CSE/1930" target="_blank" rel="noopener">Prof. Dr. Hafiz Md. Hasan Babu</a>.
+                    </p>
+                    <p>
+                        My research methodologies include adaptive learning algorithms, fuzzy systems, multi-objective optimization, with applications in healthcare diagnostics and treatment planning. I am particularly interested in developing clinically relevant solutions that bridge the gap between theoretical computer science and practical medical applications.
+                    </p>
+                    <p class="cta">I am open to research collaboration or full time opportunities.</p>
                 </div>
-                <!-- <div class="news-item">
-                    <div class="news-date">April., 2025</div>
-                    <div class="news-content">
-                        Seeking for PhD positions in AI/ML with focus on Healthcare Analytics.
-                    </div>
-                </div> -->
-                <div class="news-item">
-                    <div class="news-date">Mar., 2025</div>
-                    <div class="news-content">
-                        Research paper "A New Clinically Relevant Multi-drug Cancer Chemotherapy based on Fuzzy Expert System" submitted at Computers in Biology and Medicine.
-                    </div>
-                </div>
-                <div class="news-item">
-                    <div class="news-date">Feb., 2025</div>
-                    <div class="news-content">
-                        Research paper "TSOF: A Tree-Based Self-Organizing Fuzzy Method for Streaming Data Classification in Alzheimer's Disease Detection" submitted at Journal of Intelligent & Fuzzy Systems.
-                    </div>
-                </div>
-                <div class="news-item">
-                    <div class="news-date">Jan., 2025</div>
-                    <div class="news-content">
-                        Promoted to Software Engineer-II
-                    </div>
+                <div class="profile-image">
+                    <img src="./sajal_debnath.jpg" alt="Sajal Debnath">
                 </div>
             </div>
 
-            <!-- 2024 Tab -->
-            <div id="2024" class="tab-content">
-                <div class="news-item">
-                    <div class="news-date">Aug., 2024</div>
-                    <div class="news-content">
-                        Published our research paper "Multi-objective optimization and feedback-based chemotherapy drug scheduling"
-                    </div>
+            <section id="news">
+                <h1>News</h1>
+                <div class="news-tabs">
+                    <button class="tab-button active" onclick="openTab(event, '2025')">2025</button>
+                    <button class="tab-button" onclick="openTab(event, '2024')">2024</button>
+                    <button class="tab-button" onclick="openTab(event, '2023-past')">2023–Past</button>
                 </div>
-                <div class="news-item">
-                    <div class="news-date">Jul., 2024</div>
-                    <div class="news-content">
-                        Promoted to Software Engineer at Brain Station-23 PLC.
-                    </div>
-                </div>
-                <div class="news-item">
-                    <div class="news-date">April., 2024</div>
-                    <div class="news-content">
-                        Accepted and presented our chemotherapy drug scheduling work at the ICAEEE-2024.
-                    </div>
-                </div>
-                <div class="news-item">
-                    <div class="news-date">Mar., 2024</div>
-                    <div class="news-content">
-                        Completed my M.Sc. in Computer Science and Engineering from University of Barishal with CGPA 3.73/4.00.
-                    </div>
-                </div>
-            </div>
 
-            <!-- 2023-PAST Tab -->
-            <div id="2023-past" class="tab-content">
-                <div class="news-item">
-                    <div class="news-date">Jan., 2023</div>
-                    <div class="news-content">
-                        Published "A Modular Fuzzy Expert System for Chemotherapy Drug Dose Scheduling" in Healthcare Analytics journal.
+                <div id="2025" class="tab-content active">
+                    <div class="news-item">
+                        <div class="news-date">October, 2025</div>
+                        <div>Research paper "TSOF: A Tree-Based Self-Organizing Fuzzy Method for Streaming Data Classification in Alzheimer's Disease Detection", accepted by Journal of Intelligent &amp; Fuzzy Systems</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">March, 2025</div>
+                        <div>Research paper "A New Clinically Relevant Multi-drug Cancer Chemotherapy based on Fuzzy Expert System" submitted at Computers in Biology and Medicine.</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">February, 2025</div>
+                        <div>Research paper "TSOF: A Tree-Based Self-Organizing Fuzzy Method for Streaming Data Classification in Alzheimer's Disease Detection" submitted at Journal of Intelligent &amp; Fuzzy Systems.</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">January, 2025</div>
+                        <div>Promoted to Software Engineer-II</div>
                     </div>
                 </div>
-                <div class="news-item">
-                    <div class="news-date">Oct., 2022</div>
-                    <div class="news-content">
-                        Published "Buffer-based adaptive fuzzy classifier" in Applied Intelligence (Springer).
+
+                <div id="2024" class="tab-content">
+                    <div class="news-item">
+                        <div class="news-date">August, 2024</div>
+                        <div>Published our research paper "Multi-objective optimization and feedback-based chemotherapy drug scheduling"</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">July, 2024</div>
+                        <div>Promoted to Software Engineer at Brain Station-23 PLC.</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">April, 2024</div>
+                        <div>Accepted and presented our chemotherapy drug scheduling work at the ICAEEE-2024.</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">March, 2024</div>
+                        <div>Completed my M.Sc. in Computer Science and Engineering from University of Barishal with CGPA 3.73/4.00.</div>
                     </div>
                 </div>
-                <div class="news-item">
-                    <div class="news-date">Jun., 2022</div>
-                    <div class="news-content">
-                        Joined as Associate Software Engineer (Python) in Brain Station 23 PLC. 
+
+                <div id="2023-past" class="tab-content">
+                    <div class="news-item">
+                        <div class="news-date">January, 2023</div>
+                        <div>Published "A Modular Fuzzy Expert System for Chemotherapy Drug Dose Scheduling" in Healthcare Analytics journal.</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">October, 2022</div>
+                        <div>Published "Buffer-based adaptive fuzzy classifier" in Applied Intelligence (Springer).</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">June, 2022</div>
+                        <div>Joined as Associate Software Engineer (Python) in Brain Station 23 PLC.</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">April, 2022</div>
+                        <div>Completed B.Sc. in Computer Science and Engineering from University of Barishal with CGPA 3.73/4.00.</div>
                     </div>
                 </div>
-                <div class="news-item">
-                    <div class="news-date">Apr., 2022</div>
-                    <div class="news-content">
-                        Completed B.Sc. in Computer Science and Engineering from University of Barishal with CGPA 3.73/4.00.
+            </section>
+
+            <section id="education">
+                <h2>Education</h2>
+                <div class="education-item">
+                    <h3>Bachelor of Science in Computer Science and Engineering</h3>
+                    <p>University of Barishal, Bangladesh</p>
+                    <p>April, 2022 | CGPA: 3.73/4.00</p>
+                    <p><em>Thesis: Buffer-based Adaptive Fuzzy Classifier</em></p>
+                </div>
+            </section>
+
+            <section id="publications">
+                <h2>Publications</h2>
+                <div class="publication-item">
+                    <h3>Published Papers</h3>
+                    <ul class="publication-list">
+                        <li><b>Sajal Debnath</b>, Md Manjur Ahmed, Hafiz Md. Hasan Babu, Samir Brahim Belhaouari. "TSOF: A Tree-Based Self-Organizing Fuzzy Method for Streaming Data Classification in Alzheimer's Disease Detection." Journal of Intelligent &amp; Fuzzy Systems (2025) (<a href="https://doi.org/10.1177/18758967251394866" target="_blank" rel="noopener">paper</a>) (<a href="https://github.com/Sajaldeb25/TSOF" target="_blank" rel="noopener">code</a>)</li>
+                        <li>Rahat Hossain Faisal, Salma Akter Kakon, <b>Sajal Debnath</b>, Md Minhaj Ul Islam and Silvia Sifath. "Enhanced Fuzzy Expert Control for Cancer Chemotherapy Drug Dose Scheduling." Barishal University Journal of Bio-Sciences, Vol. 3, no. 1 (2024). (<a href="https://bu.ac.bd/oldwebsite/uploads/BUJBSV3J2024/05.pdf" target="_blank" rel="noopener">paper</a>)</li>
+                        <li><b>Sajal Debnath</b>, Rahat Hossain Faisal, Md Minhaj Ul Islam, Silvia Sifath, and Salma Akter Kakon. "Optimization of Chemotherapy Drug Regimens with Genetic Algorithm and Dose Optimizer." Barishal University Journal of Bio-Sciences. Vol. 3, no. 1 (2024). (<a href="https://bu.ac.bd/oldwebsite/uploads/BUJBSV3J2024/06.pdf" target="_blank" rel="noopener">paper</a>)</li>
+                        <li><b>Sajal Debnath</b>, Rahat Hossain Faisal, Md Minhaj Ul Islam, Silvia Sifath, Salma Akter Kakon, and Md Shafiul Alam. "Multi-objective optimization and feedback-based chemotherapy drug scheduling." In 2024 3rd International Conference on Advancement in Electrical and Electronic Engineering (ICAEEE), pp. 1-6. IEEE, 2024. (<a href="https://doi.org/10.1109/ICAEEE62219.2024.10561667" target="_blank" rel="noopener">paper</a>) (<a href="https://github.com/Sajaldeb25/All-research-paper-code-sajal-debnath" target="_blank" rel="noopener">code</a>)</li>
+                        <li>Rahat Hossain Faisal, <b>Sajal Debnath</b>, Md Minhaj Ul Islam, Silvia Sifath, Salma Akter Kakon, Md Shafiul Alam, and Nazmul Siddique. "A modular fuzzy expert system for chemotherapy drug dose scheduling." Healthcare Analytics 3 (2023): 100139. (<a href="https://doi.org/10.1016/j.health.2023.100139" target="_blank" rel="noopener">paper</a>) (<a href="https://github.com/Sajaldeb25/All-research-paper-code-sajal-debnath" target="_blank" rel="noopener">code</a>)</li>
+                        <li><b>Sajal Debnath</b>, Md Manjur Ahmed, Samir Brahim Belhaouari, Toshiyuki Amagasa, and Mostafijur Rahman. "Buffer-based adaptive fuzzy classifier." Applied Intelligence 53, no. 11 (2023): 14448-14469. (<a href="https://doi.org/10.1007/s10489-022-04155-2" target="_blank" rel="noopener">paper</a>) (<a href="https://github.com/Sajaldeb25/All-research-paper-code-sajal-debnath" target="_blank" rel="noopener">code</a>)</li>
+                        <li>Md Erfan, Dipto Singho Dhrubo, <b>Sajal Debnath</b>, Hridoy Roy, Tithi Paul, and Rahat Hossain Faisal. "Microcontroller based Robotics Support for Blind People." Barishal University Journal, Part-1 (2018). (<a href="https://bu.ac.bd/oldwebsite/uploads/BUJ1V5I12/12.%20Md.%20Erfan1.pdf" target="_blank" rel="noopener">paper</a>)</li>
+                    </ul>
+                </div>
+                <div class="publication-item">
+                    <h3>Under Review</h3>
+                    <ul class="publication-list">
+                        <li><b>Sajal Debnath</b>, Rahat Hossain Faisal and Md Shafiul Alam. "A New Clinically Relevant Multi-drug Cancer Chemotherapy based on Fuzzy Expert System" (Computers in Biology and Medicine)</li>
+                        <li><b>Sajal Debnath</b>, Rahat Hossain Faisal and Md Manjur Ahmed. "Deep Learning-Based Classification of Alzheimer's Disease Using Transfer Learning and Multi-Modal Brain MRI" (BDAI-2025)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="experience">
+                <h2>Professional Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>Software Engineer</h3>
+                        <p class="meta">Brain Station-23 PLC, Bangladesh | July, 2024 – Present</p>
+                        <ul>
+                            <li>Lead the backend support team to resolve critical client issues with immediate response.</li>
+                            <li>Implement new features under the core development team and continuously optimize existing functions, ensuring system efficiency and scalability.</li>
+                            <li>Design and model efficient database structures to ensure optimal data retrieval and performance.</li>
+                            <li>Perform database engineering tasks based on specific customer requirements and collaborate closely to meet their needs.</li>
+                            <li>Provide technical mentorship and guidance to junior team members, fostering their growth and skill development.</li>
+                            <li>Proactively enhance system performance through improvements and refactoring efforts.</li>
+                            <li>Performance improvement of the system by about 70%, by using optimized query and indexing and influencing team members to follow it.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Associate Software Engineer</h3>
+                        <p class="meta">Brain Station-23 PLC, Bangladesh | June, 2022 – June, 2024</p>
+                        <ul>
+                            <li>Write scalable code for a bus booking platform that's used by an offshore company (Ferdia TEQ).</li>
+                            <li>Built and maintained Multi-tenant application.</li>
+                            <li>Communicating with teams regarding product and design.</li>
+                            <li>Works in both core and support team for implementing new features and bug fixing.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>Research Assistant</h3>
+                        <p class="meta">In Dr. Md Manjur Ahmed's Research Team | September, 2021 – February, 2022</p>
+                        <ul>
+                            <li>Streaming data analysis and algorithm developments</li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-
-        
-        <section id="education">
-            <h2>Education</h2>
-            <!-- <div class="education-item">
-                <h3>Master of Science in Computer Science and Engineering</h3>
-                <p>University of Barishal, Bangladesh</p>
-                <p>March, 2024 | CGPA: 3.73/4.00</p>
-                <p><em>Thesis: Fuzzy Expert System-based Multi-drug Chemotherapy Scheduling for Cell Cycle Specific Cancer Treatment</em></p>
-            </div> -->
-            <div class="education-item">
-                <h3>Bachelor of Science in Computer Science and Engineering</h3>
-                <p>University of Barishal, Bangladesh</p>
-                <p>April, 2022 | CGPA: 3.73/4.00</p>
-                <p><em>Thesis: Buffer-based Adaptive Fuzzy Classifier</em></p>
-            </div>
-        </section>
-
-        <section id="publications">
-            <h2>Publications</h2>
-            <div class="publication-item">
-                <h3>Published Papers</h3>
-                <ul>
-                    <li><b>Sajal Debnath</b>, Md Manjur Ahmed, Hafiz Md. Hasan Babu, Samir Brahim Belhaouari. "TSOF: A Tree-Based Self-Organizing Fuzzy Method for Streaming Data Classification in Alzheimer's Disease Detection." Journal of Intelligent & Fuzzy Systems (2025) (<a href="https://doi.org/10.1177/18758967251394866" target="_blank">paper</a>) (<a href="https://github.com/Sajaldeb25/TSOF" target="_blank">code</a>)</li>
-                    <li>Rahat Hossain Faisal, Salma Akter Kakon, <b>Sajal Debnath</b>, Md Minhaj Ul Islam and Silvia Sifath. "Enhanced Fuzzy Expert Control for Cancer Chemotherapy Drug Dose Scheduling." Barishal University Journal of Bio-Sciences, Vol. 3, no. 1 (2024). (<a href="https://bu.ac.bd/oldwebsite/uploads/BUJBSV3J2024/05.pdf" target="_blank">paper</a>)</li>
-                    <li><b>Sajal Debnath</b>, Rahat Hossain Faisal, Md Minhaj Ul Islam, Silvia Sifath, and Salma Akter Kakon. "Optimization of Chemotherapy Drug Regimens with Genetic Algorithm and Dose Optimizer." Barishal University Journal of Bio-Sciences. Vol. 3, no. 1 (2024). (<a href="https://bu.ac.bd/oldwebsite/uploads/BUJBSV3J2024/06.pdf" target="_blank">paper</a>)</li>
-                    <li><b>Sajal Debnath</b>, Rahat Hossain Faisal, Md Minhaj Ul Islam, Silvia Sifath, Salma Akter Kakon, and Md Shafiul Alam. "Multi-objective optimization and feedback-based chemotherapy drug scheduling." In 2024 3rd International Conference on Advancement in Electrical and Electronic Engineering (ICAEEE), pp. 1-6. IEEE, 2024. (<a href="https://doi.org/10.1109/ICAEEE62219.2024.10561667" target="_blank">paper</a>) (<a href="https://github.com/Sajaldeb25/All-research-paper-code-sajal-debnath" target="_blank">code</a>)</li>
-                    <li>Rahat Hossain Faisal, <b>Sajal Debnath</b>, Md Minhaj Ul Islam, Silvia Sifath, Salma Akter Kakon, Md Shafiul Alam, and Nazmul Siddique. "A modular fuzzy expert system for chemotherapy drug dose scheduling." Healthcare Analytics 3 (2023): 100139. (<a href="https://doi.org/10.1016/j.health.2023.100139" target="_blank">paper</a>) (<a href="https://github.com/Sajaldeb25/All-research-paper-code-sajal-debnath" target="_blank">code</a>)</li>
-                    <li><b>Sajal Debnath</b>, Md Manjur Ahmed, Samir Brahim Belhaouari, Toshiyuki Amagasa, and Mostafijur Rahman. "Buffer-based adaptive fuzzy classifier." Applied Intelligence 53, no. 11 (2023): 14448-14469. (<a href="https://doi.org/10.1007/s10489-022-04155-2" target="_blank">paper</a>) (<a href="https://github.com/Sajaldeb25/All-research-paper-code-sajal-debnath" target="_blank">code</a>)</li>
-                    <li>Md Erfan, Dipto Singho Dhrubo, <b>Sajal Debnath</b>, Hridoy Roy, Tithi Paul, and Rahat Hossain Faisal. "Microcontroller based Robotics Support for Blind People." Barishal University Journal, Part-1 (2018). (<a href="https://bu.ac.bd/oldwebsite/uploads/BUJ1V5I12/12.%20Md.%20Erfan1.pdf" target="_blank">paper</a>) </li>
-                </ul>
-            </div>
-            <div class="publication-item">
-                <h3>Under Review</h3>
-                <ul>
-                    <li><b>Sajal Debnath</b>, Rahat Hossain Faisal and Md Shafiul Alam. "A New Clinically Relevant Multi-drug Cancer Chemotherapy based on Fuzzy Expert System" (Computers in Biology and Medicine)</li>
-                    <li><b>Sajal Debnath</b>, Rahat Hossain Faisal and Md Manjur Ahmed. "Deep Learning-Based Classification of Alzheimer’s Disease Using Transfer Learning and Multi-Modal Brain MRI" (BDAI-2025)</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="experience">
-            <h2>Professional Experience</h2>
-            <div class="experience-item">
-                <h3>Software Engineer</h3>
-                <p>Brain Station-23 PLC, Bangladesh | July, 2024 - Present</p>
-                <ul>
-                    <li>Lead the backend support team to resolve critical client issues with immediate response.</li>
-                    <li>Implement new features under the core development team and continuously optimize existing functions, ensuring system efficiency and scalability.</li>
-                    <li>Design and model efficient database structures to ensure optimal data retrieval and performance.</li>
-                    <li>Perform database engineering tasks based on specific customer requirements and collaborate closely to meet their needs.</li>
-                    <li>Provide technical mentorship and guidance to junior team members, fostering their growth and skill development.</li>
-                    <li>Proactively enhance system performance through improvements and refactoring efforts.</li>
-                    <li>Performance improvement of the system by about 70%, by using optimized query and indexing and influencing team members to follow it.</li>                    
-                </ul>
-            </div>
-            <div class="experience-item">
-                <h3>Associate Software Engineer</h3>
-                <p>Brain Station-23 PLC, Bangladesh | June, 2022 - June, 2024</p>
-                <ul>
-                    <li>Write scalable code for a bus booking platform that's used by an offshore company (Ferdia TEQ). </li>
-                    <li>Built and maintained Multi-tenant application. </li>
-                    <li>Communicating with teams regarding product and design. </li>
-                    <li>Works in both core and support team for implementing new features and bug fixing. </li>
-                </ul>
-            </div>
-            <div class="experience-item">
-                <h3>Research Assistant</h3>
-                <p>In Dr. Md Manjur Ahmed's Research Team | September, 2021 - February, 2022</p>
-                <ul>
-                    <li>Streaming data analysis and algorithm developments</li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="skills">
-            <h2>Skills</h2>
-            <div class="skills-grid">
-                <div>
+            <section id="skills">
+                <h2>Skills</h2>
+                <div class="skill-group">
                     <h3>Programming</h3>
-                    <ul>
-                        <li>Python (PyTorch, TensorFlow)</li>
-                        <li>Matlab (Proficient)</li>
-                        <li>C/C++ (Contest Programming)</li>
-                        <li>SQL (Advanced)</li>
-<!--                         <li>Javascript and JQuery (Professional)</li> -->
-                    </ul>
+                    <div class="skill-chips">
+                        <span class="chip">Python (PyTorch, TensorFlow)</span>
+                        <span class="chip">Matlab (Proficient)</span>
+                        <span class="chip">C/C++ (Contest Programming)</span>
+                        <span class="chip">SQL (Advanced)</span>
+                    </div>
                 </div>
-                <div>
+                <div class="skill-group">
                     <h3>Software</h3>
-                    <ul>
-                        <li>Matlab</li>
-                        <li>Jupyter Notebook</li>
-                        <li>Pycharm</li>
-                        <li>Tableau</li>
-                        <li>LeTex</li>
-                    </ul>
+                    <div class="skill-chips">
+                        <span class="chip teal">Matlab</span>
+                        <span class="chip teal">Jupyter Notebook</span>
+                        <span class="chip teal">Pycharm</span>
+                        <span class="chip teal">Tableau</span>
+                        <span class="chip teal">LaTeX</span>
+                    </div>
                 </div>
-                <div>
+                <div class="skill-group">
                     <h3>Other Skills</h3>
-                    <ul>
-                        <li>Problem-Solving</li>
-                        <li>Adaptability</li>
-                        <li>Critical Thinking</li>
-                        <li>Communication</li>
-                        <li>Leadership</li>
-                    </ul>
+                    <div class="skill-chips">
+                        <span class="chip">Problem-Solving</span>
+                        <span class="chip">Adaptability</span>
+                        <span class="chip">Critical Thinking</span>
+                        <span class="chip">Communication</span>
+                        <span class="chip">Leadership</span>
+                    </div>
                 </div>
-            </div>
-            <h2 style="padding-top: 35px;">Language Proficiency</h2>
-            <div class="skills-grid">
-                <div>
-                    <ul>
-                        <li>English (IELTS Overall Band <b>6.5</b>; L-7.5, R-6.5, W-6, S-6)</li>
-                        <li>Bangla (Native Speaker)</li>
-                    </ul>
+
+                <h2 class="sub-heading">Language Proficiency</h2>
+                <div class="skill-chips">
+                    <span class="chip">English (IELTS 6.5; L-7.5, R-6.5, W-6, S-6)</span>
+                    <span class="chip teal">Bangla (Native Speaker)</span>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section id="problem-solving">
-            <h2>Problem Solving & Competitions</h2>
-            <ul>
-                <li>Solved 530+ problems on Codeforces (Max Rating: 1202)</li>
-                <li>201 problems solved on UVa Online Judge</li>
-                <li>Participated in ACM ICPC Dhaka Regional (2017, 2018)</li>
-                <li>2nd Position in UGV Inter-University Programming Contest (2019)</li>
-                <li>Participated in Code Samurai Hackathon and Kaggle competitions</li>
-            </ul>
+            <section id="problem-solving">
+                <h2>Problem Solving &amp; Competitions</h2>
+                <ul>
+                    <li>Solved 530+ problems on Codeforces (Max Rating: 1202)</li>
+                    <li>201 problems solved on UVa Online Judge</li>
+                    <li>Participated in ACM ICPC Dhaka Regional (2017, 2018)</li>
+                    <li>2nd Position in UGV Inter-University Programming Contest (2019)</li>
+                    <li>Participated in Code Samurai Hackathon and Kaggle competitions</li>
+                </ul>
 
-            <h2 style="padding-top: 35px;">Certification</h2>
-            <ul>
-                <li>Meta Database Engineer Professional Certificate</li>
-                <li>IBM Machine Learning Professional Certificate</li>
-                <li>IBM Generative AI Engineering with LLMs Specialization</li>
-                
-            </ul>
-        </section>
+                <h2 class="sub-heading">Certification</h2>
+                <div class="skill-chips">
+                    <span class="chip">Meta Database Engineer Professional Certificate</span>
+                    <span class="chip">IBM Machine Learning Professional Certificate</span>
+                    <span class="chip">IBM Generative AI Engineering with LLMs Specialization</span>
+                </div>
+            </section>
 
-        <section id="contact" class="contact-section">
-            <div class="contact-container">
-                <!-- <h2 class="contact-title">Contact Information</h2> -->
+            <section id="contact" class="contact-section">
+                <h2>Contact</h2>
                 <div class="contact-links">
                     <a href="mailto:sajal.cse3.bu@gmail.com" class="contact-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                            <polyline points="22,6 12,13 2,6"/>
-                        </svg>
-                        sajal.cse3.bu@gmail.com
+                        <span class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </span>
+                        Email
                     </a>
-                    <a href="https://github.com/Sajaldeb25" target="_blank" class="contact-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                        </svg>
+                    <a href="https://github.com/Sajaldeb25" target="_blank" rel="noopener" class="contact-item">
+                        <span class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                            </svg>
+                        </span>
                         GitHub
                     </a>
-                    <a href="https://www.linkedin.com/in/sajal-debnath-6ab44b16b/" target="_blank" class="contact-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                            <rect x="2" y="9" width="4" height="12"/>
-                            <circle cx="4" cy="4" r="2"/>
-                        </svg>
+                    <a href="https://www.linkedin.com/in/sajal-debnath-6ab44b16b/" target="_blank" rel="noopener" class="contact-item">
+                        <span class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect x="2" y="9" width="4" height="12"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </span>
                         LinkedIn
                     </a>
-                    <a href="https://www.facebook.com/sajal.debnath.025" target="_blank" class="contact-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                        </svg>
+                    <a href="https://www.facebook.com/sajal.debnath.025" target="_blank" rel="noopener" class="contact-item">
+                        <span class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </span>
                         Facebook
                     </a>
-                    <a href="https://scholar.google.com/citations?hl=en&user=Zi30rKgAAAAJ&view_op=list_works&authuser=1&sortby=pubdate" target="_blank" class="contact-item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2L2 12l10 10 10-10L12 2z"/>
-                            <path d="M9.5 9v6h5"/>
-                            <path d="M9.5 12h5"/>
-                        </svg>
-                        Google Scholar
+                    <a href="https://scholar.google.com/citations?hl=en&user=Zi30rKgAAAAJ&view_op=list_works&authuser=1&sortby=pubdate" target="_blank" rel="noopener" class="contact-item">
+                        <span class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 2L2 12l10 10 10-10L12 2z"/>
+                                <path d="M9.5 9v6h5"/>
+                                <path d="M9.5 12h5"/>
+                            </svg>
+                        </span>
+                        Scholar
                     </a>
                 </div>
-                <p>&copy; Copyright 2024 Sajal Debnath. All rights reserved.</p>
-            </div>
-        </section>    
-        
+                <p class="copyright">&copy; 2026 Sajal Debnath. All rights reserved.</p>
+            </section>
+        </main>
     </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            document.querySelectorAll('.tab-content').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(function(el) {
+                el.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+            evt.currentTarget.classList.add('active');
+        }
+
+        (function() {
+            var menuToggle = document.getElementById('menuToggle');
+            var sidebar = document.getElementById('sidebar');
+            var backdrop = document.getElementById('sidebarBackdrop');
+
+            function closeSidebar() {
+                sidebar.classList.remove('open');
+                menuToggle.classList.remove('open');
+                backdrop.classList.remove('visible');
+            }
+
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+                menuToggle.classList.toggle('open');
+                backdrop.classList.toggle('visible');
+            });
+
+            backdrop.addEventListener('click', closeSidebar);
+
+            sidebar.querySelectorAll('a[href^="#"]').forEach(function(link) {
+                link.addEventListener('click', closeSidebar);
+            });
+
+            var navLinks = document.querySelectorAll('.sidebar-nav a[data-section]');
+            var spyTargets = [{ el: document.querySelector('.hero'), section: 'top' }];
+            document.querySelectorAll('section[id]').forEach(function(section) {
+                spyTargets.push({ el: section, section: section.id });
+            });
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var match = spyTargets.find(function(t) { return t.el === entry.target; });
+                        if (match) {
+                            navLinks.forEach(function(link) {
+                                link.classList.toggle('active', link.dataset.section === match.section);
+                            });
+                        }
+                    }
+                });
+            }, { rootMargin: '-30% 0px -55% 0px' });
+
+            spyTargets.forEach(function(t) { observer.observe(t.el); });
+
+            // Sidebar collapse
+            var sidebarToggle = document.getElementById('sidebarToggle');
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function() {
+                    document.documentElement.classList.toggle('sidebar-collapsed');
+                    var collapsed = document.documentElement.classList.contains('sidebar-collapsed');
+                    localStorage.setItem('sidebarCollapsed', collapsed);
+                    sidebarToggle.setAttribute('aria-label', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
+                    sidebarToggle.setAttribute('title', collapsed ? 'Expand menu' : 'Collapse menu');
+                });
+                var isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                sidebarToggle.setAttribute('aria-label', isCollapsed ? 'Expand sidebar' : 'Collapse sidebar');
+                sidebarToggle.setAttribute('title', isCollapsed ? 'Expand menu' : 'Collapse menu');
+            }
+
+            // Theme toggle
+            var themeToggle = document.getElementById('themeToggle');
+            var themeLabel = themeToggle && themeToggle.querySelector('.theme-label');
+
+            function updateThemeLabel() {
+                var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                if (themeLabel) {
+                    themeLabel.textContent = isDark ? 'Light mode' : 'Dark mode';
+                }
+                if (themeToggle) {
+                    themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+                }
+            }
+
+            function setTheme(dark) {
+                if (dark) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                }
+                updateThemeLabel();
+            }
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function() {
+                    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                    setTheme(!isDark);
+                });
+                updateThemeLabel();
+            }
+        })();
+    </script>
 </body>
-<script>
-    // Function to open a specific tab
-    function openTab(evt, tabName) {
-        // Hide all tab content
-        var tabContent = document.getElementsByClassName("tab-content");
-        for (var i = 0; i < tabContent.length; i++) {
-            tabContent[i].classList.remove("active");
-        }
-
-        // Remove active class from all tab buttons
-        var tabButtons = document.getElementsByClassName("tab-button");
-        for (var i = 0; i < tabButtons.length; i++) {
-            tabButtons[i].classList.remove("active");
-        }
-
-        // Show the specific tab content
-        document.getElementById(tabName).classList.add("active");
-        
-        // Add active class to the button that opened the tab
-        evt.currentTarget.classList.add("active");
-    }
-
-    // Add this to ensure the first tab is open by default when the page loads
-    document.addEventListener("DOMContentLoaded", function() {
-        // Get the first tab button and simulate a click
-        var firstTab = document.getElementsByClassName("tab-button")[0];
-        if (firstTab) {
-            firstTab.click();
-        }
-    });
-
-</script>
 </html>
